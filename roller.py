@@ -57,7 +57,8 @@ def roll_dice(n, die_func):
 def roll_with_modifier(n, die_func, modifier):
     """
     roll_with_modifier() simulates rolling n number of dice and adds an integer
-    to the final value.
+    to the final value. It returns a function to pass as an argument to other
+    functions.
 
     Arguments:
     n: an integer greater than 0
@@ -67,7 +68,10 @@ def roll_with_modifier(n, die_func, modifier):
     Example:
     roll_with_modifier(3, roll_die(8), 3) # Simulates rolling 3d8+3
     """
-    return roll_dice(1, die_func) + modifier
+    def roll():
+        return roll_dice(n, die_func) + modifier
+
+    return roll
 
 def advantage(roll_func):
     """
