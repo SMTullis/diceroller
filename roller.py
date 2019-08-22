@@ -19,6 +19,7 @@ the resulting sum of the dice; the final value will vary from 6 (1 + 1 + 4) to
 """
 
 import random
+import re
 
 def roll_die(sides):
     """
@@ -99,3 +100,24 @@ def use_lower(x, y):
         return x
 
     return y
+
+def parse_die_input(x):
+    return re.match("(\d*)d(\d+)([\+\-]?\d*)", x).group(1, 2, 3)
+
+def main():
+    die = parse_die_input(input("What is the dice code?"))
+    num, sides, mod = map(die, int)
+    status = input(
+        "Do you have advantage or disadvantage?\n"
+        "Please enter 'a', 'd', or 'n'.\n>"
+    ).lower()
+
+    result = 0
+
+    if status in ("a", "advantage"):
+        result = advantage(roll_with_modifier(num, roll_die(sides), mod))
+    elif status in ("d", "disadvantage"):
+        result = disadvantage(roll_with_modifier(num, roll_die(sides), mod))
+    else: result = roll_with_modifier(num, roll_die(sides), mod)
+
+    return result
