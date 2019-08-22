@@ -110,7 +110,7 @@ def parse_die_input(x):
 
 def main():
     die = parse_die_input(input("What is the dice code?"))
-    num, sides, mod = map(die, int)
+    num, sides, mod = map(int, die)
     status = input(
         "Do you have advantage or disadvantage?\n"
         "Please enter 'a', 'd', or 'n'.\n>"
