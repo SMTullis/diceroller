@@ -122,6 +122,11 @@ def main():
         result = advantage(roll_with_modifier(num, roll_die(sides), mod))
     elif status in ("d", "disadvantage"):
         result = disadvantage(roll_with_modifier(num, roll_die(sides), mod))
-    else: result = roll_with_modifier(num, roll_die(sides), mod)
+    else: result = roll_with_modifier(num, roll_die(sides), mod)()
 
-    return result
+    print(result)
+
+    return
+
+if __name__ == "__main__":
+    main()
