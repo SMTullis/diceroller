@@ -108,6 +108,33 @@ def use_lower(x, y):
 def parse_die_input(x):
     return re.match("(\d*)d(\d+)([\+\-]?\d*)", x).group(1, 2, 3)
 
+def compare_to_target_number(x):
+    def compare(n):
+        return n >= x
+
+    return compare
+
+def classify_result(x):
+    def classify(die_result, modified):
+        result = 2 + critical_adjustment(die_result)
+        if compare_to_target_number(x)(modified):
+            result -= 1
+
+        return (
+            "Critical success", "Success", "Failure", "Critical failure"
+        )[result]
+
+    return classify
+
+def critical_adjustment(x):
+    if x == 20:
+        modifier = -1
+    elif x == 1:
+        modifier = 1
+    else: modifier = 0
+
+    return modifier
+
 def main():
     die = parse_die_input(input("What is the dice code?"))
     num, sides, mod = map(int, die)
