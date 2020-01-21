@@ -25,10 +25,7 @@ def parse_die_input(x):
     return re.match("(\d*)d(\d+)([\+\-]?\d*)", x).group(1, 2, 3)
 
 def compare_to_target_number(x):
-    def compare(n):
-        return n >= x
-
-    return compare
+    return n >= x
 
 def classify_result(x):
     def classify(die_result, modified):
